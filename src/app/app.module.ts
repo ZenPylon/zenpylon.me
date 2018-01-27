@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    NgbModule
+    NgbModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
