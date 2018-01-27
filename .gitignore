@@ -40,3 +40,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+functions/node_modules
+
+# public directory contains built files
+public
