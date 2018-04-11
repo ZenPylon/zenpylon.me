@@ -5,10 +5,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AboutModule } from './about/about.module';
+import { EmptinessModule } from './emptiness/emptiness.module';
 import { HomeModule } from './home/home.module';
 import { PlaygroundModule } from './playground/playground.module';
 
 import { AppComponent } from './app.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { AppComponent } from './app.component';
     AboutModule,
     HomeModule,
     PlaygroundModule,
-    AppRoutingModule
+    AppRoutingModule,
+    EmptinessModule
   ],
   providers: [],
   bootstrap: [ AppComponent ]

@@ -4,10 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
+import { EmptinessComponent } from './emptiness/emptiness.component';
 
 const appRoutes: Routes = [
-  { path: 'about', component: AboutComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({
