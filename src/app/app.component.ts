@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public navbarCollapsed: boolean = true;
+  public navbarCollapsed = true;
 
 
   constructor() {
