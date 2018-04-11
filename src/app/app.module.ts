@@ -4,20 +4,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AboutComponent } from './about/about.component';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { AboutModule } from './about/about.module';
+import { HomeModule } from './home/home.module';
+import { PlaygroundModule } from './playground/playground.module';
 
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AboutComponent,
-    HomeComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
+    AboutModule,
+    HomeModule,
+    PlaygroundModule,
     AppRoutingModule
   ],
   providers: [],
