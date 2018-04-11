@@ -5,15 +5,3 @@
   letter-spacing: .125rem;
 }
 
-.logo-container {
-  height: 80vh;
-}
-
-.logo-img {
-  background-image: url('../assets/logo.jpg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  width: 55%;
-  height: 55%;
-}
