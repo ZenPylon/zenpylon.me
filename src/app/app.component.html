@@ -1,31 +1,33 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  <button class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#collapsingNavbar"
-          (click)="navbarCollapsed = !navbarCollapsed"
-          [attr.aria-expanded]="!navbarCollapsed"
-          aria-controls="collapsingNavbar"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-    >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div id="collapsingNavbar" class="navbar-collapse collapse" [ngbCollapse]="navbarCollapsed">
-    <ul class="nav navbar-nav text-uppercase ml-auto w-100 justify-content-end">
-       <li class="nav-item py-2 px-3">
-        <a class="nav-link" routerLink="/home" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item py-2 px-3">
-        <a class="nav-link" routerLink="/playground" routerLinkActive="active">Playground</a>
-      </li>
-      <li class="nav-item py-2 px-3">
-        <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<div class="full-screen">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapsingNavbar"
+            (click)="navbarCollapsed = !navbarCollapsed"
+            [attr.aria-expanded]="!navbarCollapsed"
+            aria-controls="collapsingNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+      >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="collapsingNavbar" class="navbar-collapse collapse" [ngbCollapse]="navbarCollapsed">
+      <ul class="nav navbar-nav text-uppercase ml-auto w-100 justify-content-end">
+        <li class="nav-item py-2 px-3">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item py-2 px-3">
+          <a class="nav-link" routerLink="/playground" routerLinkActive="active">Playground</a>
+        </li>
+        <li class="nav-item py-2 px-3">
+          <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-<section>
-  <router-outlet></router-outlet>
-</section>
+  <section class="full-height-no-nav">
+    <router-outlet></router-outlet>
+  </section>
+</div>

@@ -5,3 +5,6 @@
   letter-spacing: .125rem;
 }
 
+.full-height-no-nav {
+  height: calc(100vh - 72px);
+}

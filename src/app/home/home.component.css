@@ -1,5 +1,5 @@
 .logo-container {
-  height: 80vh;
+  height: 50%;
 }
 
 .logo-img {
@@ -8,5 +8,21 @@
   background-size: contain;
   background-position: center;
   width: 55%;
-  height: 55%;
+  height: 90%;
 }
+
+.top-text-container {
+  height: 25%;
+
+}
+.bottom-text-container {
+  height: 25%;
+}
+
+.top-text {
+  font-size: 3rem;
+}
+.bottom-text {
+  font-size: 3rem;
+}
+
