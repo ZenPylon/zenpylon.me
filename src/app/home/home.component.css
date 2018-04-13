@@ -22,8 +22,9 @@
 .top-text {
   font-size: 4.5rem;
   font-weight: 250;
-  text-transform: uppercase;
   letter-spacing: .5rem;
+  padding-left: 1rem;
+  text-transform: uppercase;
 }
 .bottom-text {
   font-size: 3rem;
