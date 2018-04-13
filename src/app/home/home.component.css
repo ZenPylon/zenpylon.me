@@ -20,9 +20,13 @@
 }
 
 .top-text {
-  font-size: 3rem;
+  font-size: 4.5rem;
+  font-weight: 250;
+  text-transform: uppercase;
+  letter-spacing: .5rem;
 }
 .bottom-text {
   font-size: 3rem;
+  font-weight: 250;
 }
 
