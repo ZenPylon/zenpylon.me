@@ -1,1 +1,5 @@
-<h1>Playground Component</h1>
+<gridster [options]="options">
+    <gridster-item [item]="item" *ngFor="let item of dashboard">
+      Content goes here!
+    </gridster-item>
+  </gridster>
