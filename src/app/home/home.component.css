@@ -31,3 +31,10 @@
   font-weight: 250;
 }
 
+.social-media {
+  color: teal;
+  font-size: .8rem;
+  font-weight: 100;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+}
