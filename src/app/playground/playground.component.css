@@ -25,6 +25,9 @@ gridster-item:hover .heading-container {
   display: flex;
 }
 
+.gridster-heading {
+  text-align: center;
+}
 
 
 
