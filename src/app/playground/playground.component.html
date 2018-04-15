@@ -1,5 +1,17 @@
 <gridster [options]="options">
-    <gridster-item [item]="item" *ngFor="let item of dashboard">
-      Content goes here!
+    <gridster-item
+      class="justify-content-center align-items-center "
+      [item]="item"
+      *ngFor="let item of dashboard">
+
+      <div class="h-100 w-100 bg-img" [style.backgroundImage]="item.backgroundImage">
+      </div>
+      <div class="h-100 w-100 heading-container">
+        <div class="h-100 w-100 heading-flex justify-content-center align-items-center">
+          <h2 class="gridster-heading">{{item.heading}}</h2>
+        </div>
+      </div>
+
+
     </gridster-item>
   </gridster>

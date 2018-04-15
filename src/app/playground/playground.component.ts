@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { GridsterConfig, GridsterItem } from 'angular-gridster2';
+
 
 @Component({
   templateUrl: 'playground.component.html',
@@ -10,7 +12,7 @@ export class PlaygroundComponent {
   options: GridsterConfig;
   dashboard: GridsterItem[];
 
-  constructor() {
+  constructor(private sanitizer: DomSanitizer) {
     this.options = {
       displayGrid: 'always',
       draggable: {
@@ -21,8 +23,17 @@ export class PlaygroundComponent {
       }
     };
     this.dashboard = [
-      {cols: 2, rows: 1, y: 0, x: 0},
-      {cols: 2, rows: 2, y: 0, x: 2}
+      {
+        cols: 2,
+        rows: 1,
+        y: 0,
+        x: 0,
+        backgroundImage: this.sanitizer.bypassSecurityTrustStyle(
+          `url('../../assets/polynomial-sphere.png')`
+        ),
+        heading: 'Polynomial Color Sphere'
+      },
+      { cols: 2, rows: 2, y: 0, x: 2, heading: 'Coming soon!' }
     ];
   }
 

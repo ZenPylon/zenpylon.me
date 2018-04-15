@@ -1,0 +1,30 @@
+gridster-item {
+  display: flex !important;
+}
+gridster-item:hover .bg-img {
+  opacity: 0
+}
+gridster-item:hover .heading-container {
+  opacity: 1;
+}
+.bg-img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 1.2s;
+}
+
+.heading-container {
+  position: absolute;
+  left: 0; bottom: 0; right: 0; top: 0;
+  opacity: 0;
+  transition: opacity 1.2s;
+}
+
+.heading-flex {
+  display: flex;
+}
+
+
+
+
