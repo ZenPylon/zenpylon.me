@@ -1,6 +1,8 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+
 import * as THREE from 'three';
-import * as Lut from 'three/examples/js/math/lut';
+const OrbitControls = require('three-orbit-controls')(THREE);
+require('three-lut');
 
 @Component({
   templateUrl: './polynomial-sphere.component.html',
@@ -18,13 +20,13 @@ export class PolynomialSphereComponent implements AfterViewInit {
   @ViewChild('threeContainer') threeContainer: ElementRef;
 
   constructor() {
-    this.initSphere();
-    this.initRenderer();
-    this.render();
+
   }
 
   ngAfterViewInit() {
-
+    this.initSphere();
+    this.initRenderer();
+    this.render();
   }
 
   initRenderer() {
@@ -53,8 +55,8 @@ export class PolynomialSphereComponent implements AfterViewInit {
     // window.addEventListener('resize', onWindowResize, false);
 
     // CONTROLS
-    const cameraControls = new THREE.OrbitControls(this.camera, this.threeContainer.nativeElement);
-    cameraControls.addEventListener('change', this.render);
+    const cameraControls = new OrbitControls(this.camera, this.threeContainer.nativeElement);
+    cameraControls.addEventListener('change', () => this.render());
 
     // MATERIALS
     const materialColor = new THREE.Color();
