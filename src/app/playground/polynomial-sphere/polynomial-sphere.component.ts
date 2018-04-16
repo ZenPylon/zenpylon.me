@@ -1,9 +1,140 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import * as THREE from 'three';
+import * as Lut from 'three/examples/js/math/lut';
 
 @Component({
   templateUrl: './polynomial-sphere.component.html',
   styleUrls: ['./polynomial-sphere.component.css']
 })
-export class PolynomialSphereComponent {
+export class PolynomialSphereComponent implements AfterViewInit {
+  camera: THREE.Camera;
+  canvasHeight: number;
+  canvasWidth: number;
+  icosphere: THREE.IcosahedronGeometry;
+  renderer: THREE.Renderer;
+  scene: THREE.Scene;
+  sphereRadius = 200;
+
+  @ViewChild('threeContainer') threeContainer: ElementRef;
+
+  constructor() {
+    this.initSphere();
+    this.initRenderer();
+    this.render();
+  }
+
+  ngAfterViewInit() {
+
+  }
+
+  initRenderer() {
+    this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    this.canvasWidth = this.threeContainer.nativeElement.innerWidth;
+    this.canvasHeight = this.threeContainer.nativeElement.innerHeight;
+    // this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setSize(this.canvasWidth, this.canvasHeight);
+    // this.renderer.gammaInput = true;
+    // this.renderer.gammaOutput = true;
+  }
+
+  initSphere() {
+    const diffuseColor = new THREE.Color();
+    const specularColor = new THREE.Color();
+
+    // CAMERA
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 80000);
+    this.camera.position.set(-600, 550, 1300);
+
+    // LIGHTS
+    const ambientLight = new THREE.AmbientLight(0x333333);	// 0.2
+    const light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
+
+    // EVENTS
+    // window.addEventListener('resize', onWindowResize, false);
+
+    // CONTROLS
+    const cameraControls = new THREE.OrbitControls(this.camera, this.threeContainer.nativeElement);
+    cameraControls.addEventListener('change', this.render);
+
+    // MATERIALS
+    const materialColor = new THREE.Color();
+    materialColor.setRGB(1.0, 1.0, 1.0);
+    const wireMaterial = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true });
+    const flatMaterial = new THREE.MeshPhongMaterial({
+      color: materialColor,
+      specular: 0x000000,
+      flatShading: true,
+      side: THREE.DoubleSide
+    });
+
+    // scene itself
+    this.scene = new THREE.Scene();
+    this.scene.background = new THREE.Color(0xAAAAAA);
+    this.scene.add(ambientLight);
+    this.scene.add(light);
+
+    // GUI
+    // setupGui();
+  }
+
+  render() {
+    this.renderer.render(this.scene, this.camera);
+  }
+
+  createIcoSphere() {
+    if (this.icosphere) {
+      return;
+    }
+    this.icosphere = new THREE.IcosahedronGeometry(this.sphereRadius, 4);
+    const faceIndices = ['a', 'b', 'c'];
+    let f, p, vertexIndex;
+
+    // Go through and find the min / max values of the discriminant
+    let minDiscriminant = null;
+    let maxDiscriminant = null;
+
+    for (let i = 0; i < this.icosphere.faces.length; i++) {
+      f = this.icosphere.faces[i];
+
+      for (let j = 0; j < 3; j++) {
+        vertexIndex = f[faceIndices[j]];
+        p = this.icosphere.vertices[vertexIndex];
+        const coefA = p.x;
+        const coefB = p.y;
+        const coefC = p.z;
+        const discriminant = Math.sqrt(Math.abs(coefB * coefB - 4 * coefA * coefC));
+
+        if (discriminant > maxDiscriminant || maxDiscriminant === null) {
+          maxDiscriminant = discriminant;
+        }
+        if (discriminant < minDiscriminant || minDiscriminant === null) {
+          minDiscriminant = discriminant;
+        }
+      }
+    }
+
+    const rainbowLut = new (THREE as any).Lut('rainbow', 512);
+    rainbowLut.setMax(maxDiscriminant);
+    rainbowLut.setMin(minDiscriminant);
+
+    for (let i = 0; i < this.icosphere.faces.length; i++) {
+      f = this.icosphere.faces[i];
+
+      for (let j = 0; j < 3; j++) {
+        vertexIndex = f[faceIndices[j]];
+        p = this.icosphere.vertices[vertexIndex];
+        const coefA = p.x;
+        const coefB = p.y;
+        const coefC = p.z;
+        const discriminant = Math.sqrt(Math.abs(coefB * coefB - 4 * coefA * coefC));
+      }
+    }
+
+    const material = new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true, vertexColors: THREE.VertexColors, shininess: 0 });
+    const wireframeMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, transparent: true });
+    const mesh = new THREE.Mesh(this.icosphere, material);
+    mesh.position.x = 0;
+    this.scene.add(mesh);
+  }
 
 }
