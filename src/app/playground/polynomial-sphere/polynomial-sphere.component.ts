@@ -24,43 +24,33 @@ export class PolynomialSphereComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.initSphere();
+    this.initScene();
+    this.createIcoSphere();
     this.initRenderer();
     this.render();
   }
 
   initRenderer() {
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.canvasWidth = this.threeContainer.nativeElement.innerWidth;
-    this.canvasHeight = this.threeContainer.nativeElement.innerHeight;
-    // this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      canvas: this.threeContainer.nativeElement
+    });
+    this.canvasWidth = this.threeContainer.nativeElement.clientWidth;
+    this.canvasHeight = this.threeContainer.nativeElement.clientHeight;
+    this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(this.canvasWidth, this.canvasHeight);
-    // this.renderer.gammaInput = true;
-    // this.renderer.gammaOutput = true;
+    this.renderer.gammaInput = true;
+    this.renderer.gammaOutput = true;
   }
 
-  initSphere() {
-    const diffuseColor = new THREE.Color();
-    const specularColor = new THREE.Color();
-
-    // CAMERA
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 80000);
-    this.camera.position.set(-600, 550, 1300);
-
-    // LIGHTS
+  initScene() {
     const ambientLight = new THREE.AmbientLight(0x333333);	// 0.2
     const light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
+    ambientLight.color.setHSL(.121, .01, .17);
 
-    // EVENTS
-    // window.addEventListener('resize', onWindowResize, false);
-
-    // CONTROLS
-    const cameraControls = new OrbitControls(this.camera, this.threeContainer.nativeElement);
-    cameraControls.addEventListener('change', () => this.render());
-
-    // MATERIALS
     const materialColor = new THREE.Color();
     materialColor.setRGB(1.0, 1.0, 1.0);
+
     const wireMaterial = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true });
     const flatMaterial = new THREE.MeshPhongMaterial({
       color: materialColor,
@@ -69,14 +59,16 @@ export class PolynomialSphereComponent implements AfterViewInit {
       side: THREE.DoubleSide
     });
 
-    // scene itself
+    // window.addEventListener('resize', onWindowResize, false);
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 80000);
+    const cameraControls = new OrbitControls(this.camera, this.threeContainer.nativeElement);
+    cameraControls.addEventListener('change', () => this.render());
+    this.camera.position.set(-600, 550, 1300);
+
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0xAAAAAA);
+    this.scene.background = new THREE.Color(0x000000);
     this.scene.add(ambientLight);
     this.scene.add(light);
-
-    // GUI
-    // setupGui();
   }
 
   render() {
@@ -132,8 +124,17 @@ export class PolynomialSphereComponent implements AfterViewInit {
       }
     }
 
-    const material = new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true, vertexColors: THREE.VertexColors, shininess: 0 });
-    const wireframeMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, transparent: true });
+    const material = new THREE.MeshPhongMaterial({
+      color: 0xffffff,
+      flatShading: true,
+      vertexColors: THREE.VertexColors,
+      shininess: 0
+    });
+    const wireframeMaterial = new THREE.MeshBasicMaterial({
+      color: 0x000000,
+      wireframe: true,
+      transparent: true
+    });
     const mesh = new THREE.Mesh(this.icosphere, material);
     mesh.position.x = 0;
     this.scene.add(mesh);
