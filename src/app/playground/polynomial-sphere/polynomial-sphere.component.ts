@@ -110,6 +110,8 @@ export class PolynomialSphereComponent implements AfterViewInit {
     const rainbowLut = new (THREE as any).Lut('rainbow', 512);
     rainbowLut.setMax(maxDiscriminant);
     rainbowLut.setMin(minDiscriminant);
+    console.log('min discriminant', minDiscriminant);
+    console.log('max discriminant', maxDiscriminant);
 
     for (let i = 0; i < this.icosphere.faces.length; i++) {
       f = this.icosphere.faces[i];
@@ -121,6 +123,7 @@ export class PolynomialSphereComponent implements AfterViewInit {
         const coefB = p.y;
         const coefC = p.z;
         const discriminant = Math.sqrt(Math.abs(coefB * coefB - 4 * coefA * coefC));
+        f.vertexColors[j] = rainbowLut.getColor(discriminant);
       }
     }
 
