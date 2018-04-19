@@ -1,3 +1,5 @@
+declare const require: any;
+
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 import * as THREE from 'three';
@@ -9,11 +11,11 @@ require('three-lut');
   styleUrls: ['./polynomial-sphere.component.css']
 })
 export class PolynomialSphereComponent implements AfterViewInit {
-  camera: THREE.Camera;
+  camera: THREE.PerspectiveCamera;
   canvasHeight: number;
   canvasWidth: number;
   icosphere: THREE.IcosahedronGeometry;
-  renderer: THREE.Renderer;
+  renderer: THREE.WebGLRenderer;
   scene: THREE.Scene;
   sphereRadius = 200;
 
@@ -24,6 +26,9 @@ export class PolynomialSphereComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.canvasWidth = this.threeContainer.nativeElement.clientWidth;
+    this.canvasHeight = this.threeContainer.nativeElement.clientHeight;
+
     this.initScene();
     this.createIcoSphere();
     this.initRenderer();
@@ -35,8 +40,6 @@ export class PolynomialSphereComponent implements AfterViewInit {
       antialias: true,
       canvas: this.threeContainer.nativeElement
     });
-    this.canvasWidth = this.threeContainer.nativeElement.clientWidth;
-    this.canvasHeight = this.threeContainer.nativeElement.clientHeight;
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(this.canvasWidth, this.canvasHeight);
     this.renderer.gammaInput = true;
@@ -44,9 +47,8 @@ export class PolynomialSphereComponent implements AfterViewInit {
   }
 
   initScene() {
-    const ambientLight = new THREE.AmbientLight(0x333333);	// 0.2
-    const light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
-    ambientLight.color.setHSL(.121, .01, .17);
+    const ambientLight = new THREE.AmbientLight(0xAAAAAA);	// 0.2
+    ambientLight.color.setHSL(.121, .01, .8);
 
     const materialColor = new THREE.Color();
     materialColor.setRGB(1.0, 1.0, 1.0);
@@ -59,16 +61,17 @@ export class PolynomialSphereComponent implements AfterViewInit {
       side: THREE.DoubleSide
     });
 
-    // window.addEventListener('resize', onWindowResize, false);
+    window.addEventListener('resize', () => this.onWindowResize(), false);
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 80000);
+    this.camera.aspect = this.canvasWidth / this.canvasHeight;
     const cameraControls = new OrbitControls(this.camera, this.threeContainer.nativeElement);
     cameraControls.addEventListener('change', () => this.render());
     this.camera.position.set(-600, 550, 1300);
+    this.camera.updateProjectionMatrix();
 
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x000000);
     this.scene.add(ambientLight);
-    this.scene.add(light);
   }
 
   render() {
@@ -110,8 +113,6 @@ export class PolynomialSphereComponent implements AfterViewInit {
     const rainbowLut = new (THREE as any).Lut('rainbow', 512);
     rainbowLut.setMax(maxDiscriminant);
     rainbowLut.setMin(minDiscriminant);
-    console.log('min discriminant', minDiscriminant);
-    console.log('max discriminant', maxDiscriminant);
 
     for (let i = 0; i < this.icosphere.faces.length; i++) {
       f = this.icosphere.faces[i];
@@ -141,6 +142,15 @@ export class PolynomialSphereComponent implements AfterViewInit {
     const mesh = new THREE.Mesh(this.icosphere, material);
     mesh.position.x = 0;
     this.scene.add(mesh);
+  }
+
+  onWindowResize() {
+    this.canvasWidth = this.threeContainer.nativeElement.clientWidth;
+    this.canvasHeight = this.threeContainer.nativeElement.clientHeight;
+    this.renderer.setSize(this.canvasWidth, this.canvasHeight);
+    this.camera.aspect = this.canvasWidth / this.canvasHeight;
+    this.camera.updateProjectionMatrix();
+    this.render();
   }
 
 }
