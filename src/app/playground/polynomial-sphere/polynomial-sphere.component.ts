@@ -63,7 +63,6 @@ export class PolynomialSphereComponent implements AfterViewInit {
 
     window.addEventListener('resize', () => this.onWindowResize(), false);
     this.camera = new THREE.PerspectiveCamera(45, this.canvasWidth /  this.canvasHeight, 1, 80000);
-    this.camera.aspect = this.canvasWidth / this.canvasHeight;
     const cameraControls = new OrbitControls(this.camera, this.threeContainer.nativeElement);
     cameraControls.addEventListener('change', () => this.render());
     this.camera.position.set(-600, 550, 1300);
