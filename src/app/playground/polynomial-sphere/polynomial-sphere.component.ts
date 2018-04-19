@@ -1,6 +1,12 @@
 declare const require: any;
 
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  ViewChild,
+} from '@angular/core';
 
 import * as THREE from 'three';
 const OrbitControls = require('three-orbit-controls')(THREE);
@@ -18,21 +24,31 @@ export class PolynomialSphereComponent implements AfterViewInit {
   renderer: THREE.WebGLRenderer;
   scene: THREE.Scene;
   sphereRadius = 200;
+  // Canvas styles are hardcoded by three.js, so we need to undo them
+  canvasStyleHeight = .9;
+  canvasStyleWidth = .6;
 
   @ViewChild('threeContainer') threeContainer: ElementRef;
+  @HostListener('window:resize') _onWindowResize() {
+    this.onWindowResize();
+  }
+
 
   constructor() {
+
 
   }
 
   ngAfterViewInit() {
-    this.canvasWidth = this.threeContainer.nativeElement.clientWidth;
-    this.canvasHeight = this.threeContainer.nativeElement.clientHeight;
+    setTimeout(() => {
+      this.canvasWidth = this.threeContainer.nativeElement.clientWidth;
+      this.canvasHeight = this.threeContainer.nativeElement.clientHeight;
 
-    this.initScene();
-    this.createIcoSphere();
-    this.initRenderer();
-    this.render();
+      this.initScene();
+      this.createIcoSphere();
+      this.initRenderer();
+      this.render();
+    });
   }
 
   initRenderer() {
@@ -61,7 +77,6 @@ export class PolynomialSphereComponent implements AfterViewInit {
       side: THREE.DoubleSide
     });
 
-    window.addEventListener('resize', () => this.onWindowResize(), false);
     this.camera = new THREE.PerspectiveCamera(45, this.canvasWidth /  this.canvasHeight, 1, 80000);
     const cameraControls = new OrbitControls(this.camera, this.threeContainer.nativeElement);
     cameraControls.addEventListener('change', () => this.render());
@@ -144,8 +159,11 @@ export class PolynomialSphereComponent implements AfterViewInit {
   }
 
   onWindowResize() {
-    this.canvasWidth = this.threeContainer.nativeElement.clientWidth;
-    this.canvasHeight = this.threeContainer.nativeElement.clientHeight;
+    this.canvasWidth = this.canvasStyleWidth *
+      this.threeContainer.nativeElement.parentNode.clientWidth;
+    this.canvasHeight = this.canvasStyleHeight *
+      this.threeContainer.nativeElement.parentNode.clientHeight;
+
     this.renderer.setSize(this.canvasWidth, this.canvasHeight);
     this.camera.aspect = this.canvasWidth / this.canvasHeight;
     this.camera.updateProjectionMatrix();
