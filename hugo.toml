@@ -10,6 +10,18 @@ theme = 'hermit-v2'
   
   author.name = "Andrew Decker"
   
+  [[params.socialLinks]]
+    name = "email"
+    url = "mailto:ajdecker1022@gmail.com"
+
+  [[params.socialLinks]]
+    name = "github"
+    url = "https://github.com/ZenPylon"
+
+  [[params.socialLinks]]
+    name = "linkedin"
+    url = "https://www.linkedin.com/in/ajdecker1022/"
+  
 [menu]
 
 [[menu.main]]
