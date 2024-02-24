@@ -7,3 +7,17 @@ theme = 'hermit-v2'
 [params]
   homeSubtitle = "code, creativity, curiosity"
   homeSubtitlePrinter = true
+  
+  author.name = "Andrew Decker"
+  
+[menu]
+
+[[menu.main]]
+  name = "Posts"
+  url = "posts/"
+  weight = 10
+
+[[menu.main]]
+  name = "About"
+  url = "about"
+  weight = 20
