@@ -5,6 +5,11 @@ theme = 'hermit-v2'
 
 
 [params]
+  dateform        = "Jan 2, 2006"
+  dateformShort   = "Jan 2"
+  dateformNum     = "2006-01-02"
+  dateformNumTime = "2006-01-02 15:04 -0700"
+  
   homeSubtitle = "code, creativity, curiosity"
   homeSubtitlePrinter = true
   
@@ -26,10 +31,15 @@ theme = 'hermit-v2'
 
 [[menu.main]]
   name = "Posts"
-  url = "posts/"
+  url = "posts"
   weight = 10
+
+[[menu.main]]
+  name = "Now"
+  url = "now/"
+  weight = 20
 
 [[menu.main]]
   name = "About"
   url = "about"
-  weight = 20
+  weight = 30
