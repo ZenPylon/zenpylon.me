@@ -926,6 +926,11 @@ a.footnote-ref {
   }
 }
 
+.inline-emoji {
+  font-size: 2em;
+  margin-inline-start: .5em;
+}
+
 // If homeSubtitlePrinter is true
 {{ if .Site.Params.homeSubtitlePrinter }}
   #home-subtitle{
