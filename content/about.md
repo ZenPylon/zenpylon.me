@@ -10,6 +10,6 @@ Hi! I'm Andrew.
 
 I'm a software engineer based in Minneapolis. I really value curiosity, empathy, and self-reflection.
 
-Outside of work, my hobbies include piano, meditation, running, and learning about basically anything. I'm a compulsive pun generator, and I feel a visceral delight in clanging. Sorry in advance (I am not)!
+Outside of work, my hobbies include piano, meditation, running, and learning about basically anything. I'm a compulsive pun generator, and I feel a visceral delight in word play. Sorry in advance (I am not)!
 
 I hold a B.A. in philosophy from the University of Minnesota. 
